@@ -11,10 +11,10 @@ Running the test-case:
 make HEKA_DIR=/path/to/heka/checkout/dir
 ```
 
-`make` will run `hekad`, which will process the log messages included
-in the log files located in the `logs` directory (created by `make`).
+`make` will run `hekad`, which will create an rsyslog decoder for each log
+file located in the `logs` directory. The `logs` directory is created by
+`make` and includes empty log files.
 
-`hekad` will consume 400% of CPU while processing the logs, which is expected
-(`max_proc` is set to 4 in `heka.conf`). BUT it will still consume a fair
-amount of CPU (about 25% on my laptop) after all the logs have been processed,
-doing nothing.
+Even though the log files are empty `hekad` will still consume CPU, about
+25% on my 8-core laptop. The percentage of CPU is related to the number
+of log files/decoders.
